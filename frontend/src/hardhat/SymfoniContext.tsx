@@ -7,6 +7,8 @@ import Web3Modal, { IProviderOptions } from "web3modal";
 import GreeterDeployment from "./deployments/localhost/Greeter.json";
 import { Greeter } from "./typechain/Greeter";
 import { Greeter__factory } from "./typechain/factories/Greeter__factory";
+import { ImageDatabase } from "./typechain/ImageDatabase";
+import { ImageDatabase__factory } from "./typechain/factories/ImageDatabase__factory";
 
 const emptyContract = {
     instance: undefined,
@@ -27,6 +29,7 @@ const defaultSymfoniContext: SymfoniContextInterface = {
 };
 export const SymfoniContext = React.createContext<SymfoniContextInterface>(defaultSymfoniContext);
 export const GreeterContext = React.createContext<SymfoniGreeter>(emptyContract);
+export const ImageDatabaseContext = React.createContext<SymfoniImageDatabase>(emptyContract);
 
 export interface SymfoniContextInterface {
     init: (provider?: string) => void;
@@ -47,6 +50,11 @@ export interface SymfoniGreeter {
     factory?: Greeter__factory;
 }
 
+export interface SymfoniImageDatabase {
+    instance?: ImageDatabase;
+    factory?: ImageDatabase__factory;
+}
+
 export const Symfoni: React.FC<SymfoniProps> = ({
     showLoading = true,
     autoInit = true,
@@ -62,6 +70,7 @@ export const Symfoni: React.FC<SymfoniProps> = ({
     const [fallbackProvider] = useState<string | undefined>(undefined);
     const [providerPriority, setProviderPriority] = useState<string[]>(["web3modal", "hardhat"]);
     const [Greeter, setGreeter] = useState<SymfoniGreeter>(emptyContract);
+    const [ImageDatabase, setImageDatabase] = useState<SymfoniImageDatabase>(emptyContract);
     useEffect(() => {
         if (messages.length > 0)
             console.debug(messages.pop())
@@ -142,6 +151,7 @@ export const Symfoni: React.FC<SymfoniProps> = ({
             }
             const finishWithContracts = (text: string) => {
                 setGreeter(getGreeter(_provider, _signer))
+                setImageDatabase(getImageDatabase(_provider, _signer))
                 finish(text)
             }
             if (!autoInit && initializeCounter === 0) return finish("Auto init turned off.")
@@ -181,6 +191,15 @@ export const Symfoni: React.FC<SymfoniProps> = ({
         return contract
     }
         ;
+    const getImageDatabase = (_provider: providers.Provider, _signer?: Signer) => {
+        let instance = _signer ? ImageDatabase__factory.connect(ethers.constants.AddressZero, _signer) : ImageDatabase__factory.connect(ethers.constants.AddressZero, _provider)
+        const contract: SymfoniImageDatabase = {
+            instance: instance,
+            factory: _signer ? new ImageDatabase__factory(_signer) : undefined,
+        }
+        return contract
+    }
+        ;
 
     const handleInitProvider = (provider?: string) => {
         if (provider) {
@@ -196,16 +215,18 @@ export const Symfoni: React.FC<SymfoniProps> = ({
                 <SignerContext.Provider value={[signer, setSigner]}>
                     <CurrentAddressContext.Provider value={[currentAddress, setCurrentAddress]}>
                         <GreeterContext.Provider value={Greeter}>
-                            {showLoading && loading ?
-                                props.loadingComponent
-                                    ? props.loadingComponent
-                                    : <div>
-                                        {messages.map((msg, i) => (
-                                            <p key={i}>{msg}</p>
-                                        ))}
-                                    </div>
-                                : props.children
-                            }
+                            <ImageDatabaseContext.Provider value={ImageDatabase}>
+                                {showLoading && loading ?
+                                    props.loadingComponent
+                                        ? props.loadingComponent
+                                        : <div>
+                                            {messages.map((msg, i) => (
+                                                <p key={i}>{msg}</p>
+                                            ))}
+                                        </div>
+                                    : props.children
+                                }
+                            </ImageDatabaseContext.Provider >
                         </GreeterContext.Provider >
                     </CurrentAddressContext.Provider>
                 </SignerContext.Provider>

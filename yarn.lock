@@ -133,7 +133,7 @@
     "@ethersproject/logger" "^5.0.8"
     "@ethersproject/properties" "^5.0.7"
 
-"@ethersproject/address@^5.0.2", "@ethersproject/address@^5.0.9", "@ethersproject/address@5.0.11":
+"@ethersproject/address@^5.0.11", "@ethersproject/address@^5.0.2", "@ethersproject/address@^5.0.9", "@ethersproject/address@5.0.11":
   "integrity" "sha512-Et4GBdD8/tsBGjCEOKee9upN29qjL5kbRcmJifb4Penmiuh9GARXL2/xpXvEp5EW+EIW/rfCHFJrkYBgoQFQBw=="
   "resolved" "https://registry.npmjs.org/@ethersproject/address/-/address-5.0.11.tgz"
   "version" "5.0.11"
@@ -168,7 +168,7 @@
     "@ethersproject/bytes" "^5.0.9"
     "@ethersproject/properties" "^5.0.7"
 
-"@ethersproject/bignumber@^5.0.13", "@ethersproject/bignumber@^5.0.5", "@ethersproject/bignumber@5.0.15":
+"@ethersproject/bignumber@^5.0.13", "@ethersproject/bignumber@^5.0.15", "@ethersproject/bignumber@^5.0.5", "@ethersproject/bignumber@5.0.15":
   "integrity" "sha512-MTADqnyacvdRwtKh7o9ujwNDSM1SDJjYDMYAzjIgjoi9rh6TY4suMbhCa3i2vh3SUXiXSICyTI8ui+NPdrZ9Lw=="
   "resolved" "https://registry.npmjs.org/@ethersproject/bignumber/-/bignumber-5.0.15.tgz"
   "version" "5.0.15"
@@ -7345,7 +7345,7 @@
     "resolve" "^1.8.1"
     "ts-essentials" "^1.0.0"
 
-"ts-morph@^9.0.0", "ts-morph@^9.1.0":
+"ts-morph@^9.0.0":
   "integrity" "sha512-sei4u651MBenr27sD6qLDXN3gZ4thiX71E3qV7SuVtDas0uvK2LtgZkIYUf9DKm/fLJ6AB/+yhRJ1vpEBJgy7Q=="
   "resolved" "https://registry.npmjs.org/ts-morph/-/ts-morph-9.1.0.tgz"
   "version" "9.1.0"

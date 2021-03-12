@@ -2,5 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Greeter } from "./Greeter";
+export type { ImageDatabase } from "./ImageDatabase";
 
 export { Greeter__factory } from "./factories/Greeter__factory";
+export { ImageDatabase__factory } from "./factories/ImageDatabase__factory";
